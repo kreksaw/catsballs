@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cat's Balls</title>
+
+    <!-- Open Graph metadata -->
+    <meta property="og:title" content="Cat's Balls – AI-generated game prototype" />
+    <meta property="og:description" content="Built in 2 weeks with 0 lines of manual code. Unity + ComfyUI + Gemini + Cursor + LTXV." />
+    <meta property="og:image" content="https://kreksaw.github.io/catsballs/CatiAim-2.png" />
+    <meta property="og:url" content="https://kreksaw.github.io/catsballs/" />
+    <meta property="og:type" content="website" />
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        
+        .game-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border-radius: 20px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: white;
+        }
+        
+        h1 {
+            color: #333;
+            margin: 20px 0;
+            font-size: 28px;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+        .download-btn {
+            display: inline-block;
+            padding: 15px 30px;
+            margin: 10px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 16px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        
+        .both-links {
+            margin-top: 20px;
+        }
+        
+        .or-text {
+            margin: 15px 0;
+            color: #999;
+            font-size: 14px;
+        }
+        
+        .detecting {
+            color: #667eea;
+            font-style: italic;
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            .download-btn {
+                display: block;
+                margin: 15px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="game-icon">🎮</div>
+        <h1>Cat's Balls</h1>
+        <p class="subtitle">More power than you can handle.</p>
+        
+        <div id="autoRedirect" class="detecting">
+            Detecting your device...
+        </div>
+        
+        <div id="manualLinks" class="both-links" style="display: none;">
+            <a href="https://apps.apple.com/fr/app/catsballs/id6746399868" class="download-btn" id="iosLink">
+                📱 iOS
+            </a>
+            <div class="or-text">or</div>
+            <a href="https://play.google.com/store/apps/details?id=com.kreksaw.catsballs" class="download-btn" id="androidLink">
+                🤖 Android
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // URLs de vos applications
+        const IOS_URL = 'https://apps.apple.com/fr/app/catsballs/id6746399868';
+        const ANDROID_URL = 'https://play.google.com/store/apps/details?id=com.kreksaw.catsballs';
+        
+        function detectAndRedirect() {
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            
+            // Détection iOS
+            if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                setTimeout(() => {
+                    window.location.href = IOS_URL;
+                }, 1500);
+                document.getElementById('autoRedirect').innerHTML = '📱 Redirecting to App Store...';
+                return;
+            }
+            
+            // Détection Android
+            if (/android/i.test(userAgent)) {
+                setTimeout(() => {
+                    window.location.href = ANDROID_URL;
+                }, 1500);
+                document.getElementById('autoRedirect').innerHTML = '🤖 Redirecting to Google Play...';
+                return;
+            }
+            
+            // Si pas de détection automatique, afficher les deux liens
+            setTimeout(() => {
+                document.getElementById('autoRedirect').style.display = 'none';
+                document.getElementById('manualLinks').style.display = 'block';
+            }, 2000);
+        }
+        
+        // Lancer la détection
+        detectAndRedirect();
+        
+        // Fallback : afficher les liens après 3 secondes
+        setTimeout(() => {
+            if (document.getElementById('manualLinks').style.display === 'none') {
+                document.getElementById('autoRedirect').style.display = 'none';
+                document.getElementById('manualLinks').style.display = 'block';
+            }
+        }, 3000);
+    </script>
+</body>
+</html>
